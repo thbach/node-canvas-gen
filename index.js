@@ -30,7 +30,6 @@ const characters = {
 const canvas = createCanvas(400, 500);
 const ctx = canvas.getContext('2d');
 
-// Write "Awesome!"
 const main = async (char, job, rarity, hp, mp) => {
 	// Draw BG
 	const layer1 = await loadImage(bgSrc);
