@@ -1,36 +1,38 @@
 const fs = require('fs');
 const { createCanvas, loadImage, registerFont } = require('canvas');
 
-registerFont('assets/fonts/ferrum.otf', { family: 'ferrum' });
+const currentDir = `${process.cwd()}/src`;
 
-const bgSrc = 'assets/card_bg.jpg';
-const starSrc = 'assets/star.png';
+const bgSrc = `${currentDir}/assets/card_bg.jpg`;
+const starSrc = `${currentDir}/assets/star.png`;
+
 const characters = {
 	slime: {
-		src: 'assets/slime.png',
+		src: `${currentDir}/assets/slime.png`,
 		name: 'Slime',
 	},
 	dagron: {
-		src: 'assets/dagron.png',
+		src: `${currentDir}/assets/dagron.png`,
 		name: 'Dagron',
 	},
 	female1: {
-		src: 'assets/female1.png',
+		src: `${currentDir}/assets/female1.png`,
 		name: 'Female',
 	},
 	male1: {
-		src: 'assets/male1.png',
+		src: `${currentDir}/assets/male1.png`,
 		name: 'Male',
 	},
 };
 
 // DOIT
 
-// size in pixels
-const canvas = createCanvas(400, 500);
-const ctx = canvas.getContext('2d');
+const generateImage = async (char, job, rarity, hp, mp) => {
+	registerFont(`${currentDir}/assets/fonts/ferrum.otf`, { family: 'ferrum' });
 
-const main = async (char, job, rarity, hp, mp) => {
+	// size in pixels
+	const canvas = createCanvas(400, 500);
+	const ctx = canvas.getContext('2d');
 	// Draw BG
 	const layer1 = await loadImage(bgSrc);
 	ctx.drawImage(layer1, 0, 0, 400, 500);
@@ -61,8 +63,7 @@ const main = async (char, job, rarity, hp, mp) => {
 
 	const buffer = canvas.toBuffer('image/png');
 
-	// SEND BACK or
 	fs.writeFileSync('./image.png', buffer);
 };
 
-main(characters.dagron, 'mage', 5, 100, 400);
+module.exports = { characters, generateImage };
