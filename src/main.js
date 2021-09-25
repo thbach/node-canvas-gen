@@ -62,6 +62,7 @@ const generateImage = async (char, job, rarity, hp, mp) => {
 	ctx.fillText(`${mp} mp`, 390, 490);
 
 	const buffer = canvas.toBuffer('image/png');
+	return buffer;
 
 	fs.writeFileSync('./image.png', buffer);
 };
